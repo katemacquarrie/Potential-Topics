@@ -1,0 +1,255 @@
+
+\documentclass{article}
+\usepackage[center]{titlesec}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{comment}
+\usetikzlibrary{cd}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{
+	colorlinks=true,   % sets links to be colored (false by default)
+	linktoc=all,       % links both the section name and page number (options: 'section' or 'page')
+	linkcolor=blue,    % internal links color (e.g., to sections, figures)
+	citecolor=green,   % color for citation links
+	urlcolor=cyan,     % color for URL links
+}
+
+
+% Add references.bib to your src
+\usepackage[style=numeric]{biblatex} 
+
+% Add bibliography
+\addbibresource{references.bib} 
+
+\numberwithin{equation}{section}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+
+\theoremstyle{remark}
+\newtheorem{exa}[thm]{Example}
+
+\titleformat{\section}[block]{\normalsize\filcenter}{\thesection}{1em}{\MakeUppercase}
+
+
+\title{Notes on Potential Topics}
+\author{Kate Birch}
+\date{\today}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Enriched Categories Quick Notes}
+
+	\begin{defn}
+		A \textit{monoidal category} is a sextuple $ \mathcal{V}= ( \mathbb{V}, \otimes, I, a, l , r)$ where $ \mathbb{V}$ is a category, $ \otimes : \mathbb{V} \times \mathbb{V} \longrightarrow \mathbb{V}$ a functor, $I$ an object of $ \mathbb{V}$ and natural isomorphisms $ a _{XYZ}: (X\otimes Y) \otimes Z \longrightarrow X \otimes (Y\otimes Z)$, $ l_X:I\otimes X \longrightarrow  X$, $r_X: X\otimes I \longrightarrow  X$ such that the following two diagrams commute: \\
+
+		These diagrams will be added later, but they just express that $ a$ is associative and $ r$ and $ l$ act like identities.
+	\end{defn}
+	
+	\begin{defn}
+		A \textit{cartesian monoidal category} is a special case of a monoidal category in which $ \mathbb{V}$ is at category with finite products, and $ \otimes, I$ are respectively $ \times$ and the terminal object $1$, with $ a,l,r$ being the canonical isomorphisms.
+	\end{defn}
+
+	\begin{exa}
+		Examples of cartesian monoidal categories are $Set, Cat, $, $Groupoid, Ord, Top$.	
+		An example of a monoidal category is the category of endofunctors for a small category, with $ \otimes$ being composition.
+
+	\end{exa}
+	
+	\begin{defn}
+		In a monoidal category $ \mathcal{V}$, we have the \textit{representable functor} $V= \hom _{ \mathbb{V}}(I, X): \mathbb{V} \longrightarrow Set$.
+	\end{defn}
+		
+	\begin{defn}
+		A $ \mathcal{V}$\textit{-category} is a category $ \mathcal{A}$ in which,  $ \hom _{ \mathcal{A}}(A,B)$ is an object in $ \mathcal{V}$, als
+	\end{defn}
+	
+
+\section{Biadjoint Triangles}
+
+	\begin{defn} 
+		For an adjunction $ (F,U,\eta,\epsilon):\mathbb{X}\longrightarrow \mathbb{A}$, the associated $ comonad$ on $ \mathbb{A}$ is the triple $ S = (FU, \epsilon, F \eta U)$ where $ \epsilon: FU \longrightarrow 2_{ \mathbb{A}}$ and $ F \eta U: FU \longrightarrow FU^2$ are natural transformations satisfying the axioms dual to those of a monad.
+	\end{defn}
+		
+	\begin{thm}
+		Any comonad $ S = (FU, \epsilon, F \eta U)$ on $ \mathbb{A}$ gives rise to an adjoint pair $ (F_S,U_S,\eta_S,\epsilon_S):\mathbb{A}\longrightarrow \mathbb{A}_S$, where $ \mathbb{A}_S$ is the category of $ S$-coalgebras, $U_S(A)= (S(A), F \eta_{U(A)}) $ and $ F_S(A, h) = A$.
+	\end{thm}
+	
+	\begin{thm}
+		For an adjunction $ (F,U,\eta,\epsilon):\mathbb{X}\longrightarrow \mathbb{A}$ and associated comonad $ S = (FU, \epsilon, F\eta U)$ on $ \mathbb{A}$, there is a unique comparison functor $ K_S: \mathbb{X} \longrightarrow \mathbb{A}_S$ with $K_S U = U_S$ and $F_SK_S = F$. $ K$ is defined by $ X \longmapsto (F(X), F(\eta_X))$. 
+	\end{thm}
+	
+	\begin{defn}
+		%For an adjunction $ (F,U,\eta,\epsilon):\mathbb{X}\longrightarrow \mathbb{A}$, associated comonad  $ S = (FU, \epsilon, F\eta U)$ on $ \mathbb{A}$ and unique comparison functor $ K_S: \mathbb{X} \longrightarrow \mathbb{A}_S$, the functor $ F$ is \textit{precomonadic} if $K_:S$ is full and faithful.
+		As in the situation above, the functor $ F$ is \textit{precomonadic} if $ K_S$ is full and faithful.
+	\end{defn}
+
+	\begin{defn}
+		For a cocomplete, complete and symmetric monoidal closed category $ V$. Let $ (F \dashv U, \eta, \epsilon): \mathbb{X} \longrightarrow \mathbb{A} $ be a $ V$-adjunction.
+
+		The associated $V$-natural isomorphism is written
+		\[
+		 \chi : \hom _{ \mathbb{A}}(F-,-) \simeq \hom _{ \mathbb{X}}(-,U-)
+		\] 
+
+		Where $ \chi_{(X,Z)}= \hom_{\mathbb{X}}(\eta_X, UZ) \circ U_{FX,Z}$.
+	\end{defn}
+
+		Note this is because $ U_{FX,Z}: \hom_{ \mathbb{A}}(FX,Z) \longrightarrow \hom_{ \mathbb{X}}(UFX, UZ) $ and $ \hom _{ \mathbb{X}}(\eta_X, UZ): hom_{ \mathbb{X}}(UFX, UZ) \longrightarrow \hom _{ \mathbb{X}}(X, UZ)$.
+
+	\begin{thm}\label{thm:enrichedadjoint}
+		\textit{Enriched Adjoint Triangle Theorem.} Let $ (F \dashv U, \eta, \epsilon)$ and $ (G \dashv V, \rho, \mu)$ be $ V$-adjunctions such that 		
+			% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXG1hdGhiYntZfSJdLFsxLDEsIlxcbWF0aGJie0F9Il0sWzAsMCwiXFxtYXRoYmJ7WH0iXSxbMCwxLCJHIl0sWzIsMSwiRiIsMl0sWzIsMCwiSiJdXQ==
+		\[\begin{tikzcd}
+			{\mathbb{X}} && {\mathbb{Y}} \\
+			& {\mathbb{A}}
+			\arrow["J", from=1-1, to=1-3]
+			\arrow["F"', from=1-1, to=2-2]
+			\arrow["G", from=1-3, to=2-2]
+		\end{tikzcd}\]	
+		is a commutative triangle of $V$-functors. Then assume for each pair of objects $ X \in \mathbb{X}$ and $ Y \in \mathbb{Y}$, the induced diagram 
+				% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGhvbV97XFxtYXRoYmJ7WX19KEooWCksWSkiXSxbMSwwLCJcXGhvbV97XFxtYXRoYmJ7QX19KEYoWCksRyhZKSkiXSxbMywwLCJcXGhvbV97XFxtYXRoYmJ7QX19KEYoQSksIEdWRyhZKSkiXSxbMCwxLCJHX3tKKFgpLFl9Il0sWzEsMiwiR197SihYKSxWRyhZKX1cXGNpcmMgXFxjaGlfeyhKKFgpLCBHKFkpKX0iLDAseyJvZmZzZXQiOi0xfV0sWzEsMiwiXFxob21fe1xcbWF0aGJie0F9fShGKFgpLEcoXFxldGFfWSkpIiwyLHsib2Zmc2V0IjoxfV1d
+		\[\begin{tikzcd}
+			{\hom_{\mathbb{Y}}(J(X),Y)} & {\hom_{\mathbb{A}}(F(X),G(Y))} && {\hom_{\mathbb{A}}(F(X), GVG(Y))}
+			\arrow["{G_{J(X),Y}}", from=1-1, to=1-2]
+			\arrow["{G_{J(X),VG(Y)}\circ \chi_{(J(X), G(Y))}}", shift left, from=1-2, to=1-4]
+			\arrow["{\hom_{\mathbb{A}}(F(X),G(\rho_Y))}"', shift right, from=1-2, to=1-4]
+		\end{tikzcd}\]
+		is an equaliser in $ V$. The $ V$-functor $J$ has a right $V$-adjoint $W$ if and only if, for each object $ Y$ in $ \mathbb{Y}$, the $V$-equaliser of 
+			% https://q.uiver.app/#q=WzAsMixbMCwwLCJVRyhZKSJdLFszLDAsIlVHVkcoWSkiXSxbMCwxLCJVRyhWKFxcbXVfRyhZKSlcXGV0YV97SlVHKFkpfSlcXHJob197VUcoWSl9IiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIlVHKFxcZXRhX1kpIiwyLHsib2Zmc2V0IjoxfV1d
+		\[\begin{tikzcd}
+			{UG(Y)} &&& {UGVG(Y)}
+			\arrow["{UG(V(\epsilon_G(Y))\rho_{JUG(Y)})\eta_{UG(Y)}}", shift left, from=1-1, to=1-4]
+			\arrow["{UG(\rho_Y)}"', shift right, from=1-1, to=1-4]
+		\end{tikzcd}\]	
+
+		exists in the $V$-category $ \mathbb{X}$. In this case, this equaliser gives the value of $ W(Y)$.
+
+	\end{thm} \\
+				
+		\textit{Beck's Theorem} also gives us a corollary.
+
+	\begin{thm}
+				Let $ (F \dashv U, \eta, \epsilon)$ and $ (G \dashv V, \rho, \mu)$ be $ V$-adjunctions such that 		
+				% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXG1hdGhiYntZfSJdLFsxLDEsIlxcbWF0aGJie0F9Il0sWzAsMCwiXFxtYXRoYmJ7WH0iXSxbMCwxLCJHIl0sWzIsMSwiRiIsMl0sWzIsMCwiSiJdXQ==
+			\[\begin{tikzcd}
+				{\mathbb{X}} && {\mathbb{Y}} \\
+				& {\mathbb{A}}
+				\arrow["J", from=1-1, to=1-3]
+				\arrow["F"', from=1-1, to=2-2]
+				\arrow["G", from=1-3, to=2-2]
+			\end{tikzcd}\]	
+		is a commutative triangle of $V$-functors and $ G$ is $V$-precomonadic. The $ V$-functor $ J$ has a right $V$-adjoint $G$ if and only if, for each object $Y$ in $ \mathbb{Y}$, the $V$-equaliser of
+			\[\begin{tikzcd}
+				{UG(Y)} &&& {UGVG(Y)}
+				\arrow["{UG(V(\epsilon_G(Y))\rho_{JUG(Y)})\eta_{UG(Y)}}", shift left, from=1-1, to=1-4]
+				\arrow["{UG(\rho_Y)}"', shift right, from=1-1, to=1-4]
+			\end{tikzcd}\]	
+		exists in the $V$-category of $ \mathbb{X}$.
+		In this case, these equalisers give the value of the right adjoint $ W$.
+
+	\end{thm}
+		
+		In Chapters 2-4, various definitions in enriched category theory are given: pseudofunctors, pseudonatural transformations, the Yoneda embedding for 2-functors, biadjoint functors, biadjunctions, local equivalences, modifications, the bicategorical Yoneda Lemma, and the weighted bilimit.
+		Descent objects and descent diagrams and effective descent are then defined.
+		Then \Cref{thm:enrichedadjoint} is given a more general formulation in terms of biadjunctions and descent objects (instead of equalisers).\\
+
+		In Chapter 5, more definitions are given: pseudocomonads, pseudocoalgebras, and pseudoprecomonadicity. 
+		Then \Cref{thm:enrichedadjoint} is given in terms of pseudoprecomonads.\\
+
+		In Chapter 6, there is a discussion about the role of the unit and counit of the biadjunction in \Cref{thm:enrichedadjoint}.\\
+
+		In Chapter 7, a characterisation of pseudocomonadicity is given in terms of creation of descent diagrams.\\
+
+		In Chapter 8, there is a 2-(co)monadic approach to coherence, which is given by studying the inclusion of the 2-category of strict (co)algebras into the 2-category of pseudo(co)algebras of a given 2-(co)monad.\\
+
+		In Chapter 9, a result of the \textit{Adjoint Triangle Theorem} is given. The result deals with the lifting of adjunctions to adjunctions between the Eilenberg-Moore categories. With this, a natural extension of the notion of Kan extensions is given for the tricategory $2-CAT$.
+		Then the pointwise pseudo-Kan extension is discussed as well as conditions for its existence (amongst other results).
+
+
+\section{On Lifting of Biadjoints and Lax Algebras}		
+
+
+	\begin{defn}
+		A \textit{2-category} is a category enriched over $Cat$ such that its collection of objects is a discrete category of $ CAT$. 
+		This means, concretely, that in a 2-category, there are objects and morphisms (referred to respectively as 0- and 1-cells), but also morphisms between morphisms (called 2-cells), with appropriate vertical and horizontal composition.
+		Given morphisms $ f,g:A \longrightarrow B$, we write $ \alpha: f \implies g$ to denote a 2-cell from $f $ to $g$.
+
+	\end{defn}
+
+	Category with topology on it or something
+	Category that generalises shapes and geometry
+	 
+	\begin{defn}
+		A \textit{weighted limit} over a functor $ F:K \longrightarrow \mathbb{C}$ (where $ K$ a small category) with the weight $W: K \longrightarrow \mathcal{V}$ for a $ \mathcal{V}$-enriched category $ \mathbb{C}$ is the object $ \lim ^W F$ in $ \mathbb{C}$ such that for all $C$ in $ \mathbb{C}$:
+		\[
+			\text{hom} _{ \mathbb{C}}(C, \lim ^W F) \simeq \text{hom} _{ \mathcal{V}^K}(W(-), \text{hom} _{ \mathbb{C}}(C, F(-)))
+		\] 
+	\end{defn}
+	
+	\begin{defn}
+		Let $R: \mathbb{U} \longrightarrow  \mathbb{B}$and $ E: \mathbb{B} \longrightarrow \mathbb{U}$ be pseudofunctors. $ E$ is \textit{left biadjoint} to $ R$ if there exist
+			\begin{itemize}
+				\item pseudonatural transformations $ \rho: \text{Id} _{ \mathbb{B}} \longrightarrow RE $ and $ \epsilon: ER \longrightarrow \text{Id} _{ \mathbb{U}}$ \\
+				\item invertible modifications $v: \text{id} _{E} \implies ( \epsilon E) (E \rho) $ and $ w: (R \epsilon)( \rho R) \implies \text{id} _{ \mathbb{ U}}$
+			\end{itemize}
+		satisfying coherence axioms.
+	\end{defn}
+	
+	\begin{defn}
+		Let $ R$ and $ E$ be as above, except now they are also 2-functors. Let $ (E \dashv R, \rho, \epsilon, v, w) $ be the biadjunction as described above. 
+		Then $ E$ is \textit{left 2-adjoint} to $ R$ if $ v,w$ are identities and $ \rho, \epsilon$ are 2-natural transformations. 
+		In this case, we write $ (E \dashv R, \rho, \epsilon)$ to be a 2-adjunction.
+	\end{defn} 
+	
+	The paper introduces the definition of a computad, which can essentially be thought of as a graph that generates a category. 
+	A small computad can be thought in the following way: as a graph (like "objects"). 
+	Then we take the free category over this graph and take the underlying graph of that (so the same objects, but now we also have morphisms). This comes with a domain and codomain map into the computad.
+	Lastly, a computad also has a way to combine morphisms. \\
+
+	There is a generalisation of the biadjoint triangle theorem in terms of the weighted bicolimit, which turns out to define the right biadjoint we are interested in.\\
+
+	In Section 3, lax descent objects are discussed. 
+	I honestly found the definition very high level and difficult to appreciate. It is defined in terms of computads and weighted bilimits.
+	I should read through Janelidze's Galois Theory notes.\\
+
+
+	Section 4 describes pseudomonads, which are similarly defined as biadjunctions.
+	The 2-category of \textit{lax $ \mathcal{T}$-algebras} is almost like normal $ \mathcal{T}$-algebras, (where now $ \mathcal{T}$ is a pseudomonad), but with 2-cells as well.
+	There is also a sub-2-category of lax $ \mathcal{T}$-algebras, called pseudoalgebras, which I think is just the same thing, but without the 2-cells in the definition.
+	Then the adjoint from this category is discussed.
+	There is some more stuff about this.\\
+
+	Lastly, we talk about conditions under which the inclusion of pseudo lax $ \mathcal{T}$-algebras into lax $ \mathcal{T} $-algebras is discussed (it turns out we need codescent objects in $Ps- \mathcal{T}-Alg$).
+
+	These more summarised parts of the paper are more to do with the lifting of biadjoints.
+	
+
+		
+		
+	
+
+
+\end{document}
