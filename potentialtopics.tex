@@ -257,6 +257,72 @@
 	\begin{defn}
 		A morphism $ p: E \longrightarrow B$ in a category $ \mathbb{C}$ with pullbacks is an \textit{effective descent morphism} if $ p^*:( \mathbb{C} \downarrow B) \longrightarrow ( \mathbb{C} \downarrow E) $ is monadic.
 	\end{defn}
-	
 
-\end{document}
+	I want to add the definition of a fibration.
+
+	Now we want to look at what effective descent morphisms look like in 2-categories.
+
+	Let us look at that morphism above. The kernel pair of $p$ induces the internal groupoid $ \textsf{Eq}(p)$, and there is some nice diagram ("underlying truncated simplicial object") below:
+
+		\[\begin{tikzcd}
+			{E\times_BE\times_BE} & {E\times _B E} & E
+			\arrow[from=1-1, to=1-2]
+			\arrow[shift left=2, from=1-1, to=1-2]
+			\arrow[shift right=2, from=1-1, to=1-2]
+			\arrow["{\pi_1}", shift left=2, from=1-2, to=1-3]
+			\arrow["{\pi_2}"', shift right=2, from=1-2, to=1-3]
+			\arrow["e"{description}, from=1-3, to=1-2]
+		\end{tikzcd}\]
+
+	Consider an arbitrary 2-category $ \mathbb{A}$ with \textit{lax codescent objects} (but for ease of reading, assume $ \mathbb{A}= \textsf{Cat}$.
+	Consider a 2-functor $ \mathcal{F}: \mathbb{A}^{op} \longrightarrow \textsf{CAT}$ and a morphism $ p: E \longrightarrow  B$, consider the image of the diagram above under $ \mathcal{F}$.
+	
+	\begin{thm}
+		Let $ \mathcal{F}: \mathbb{A}^{op} \longrightarrow \textsf{CAT}$ be a 2-functor that preserves two-dimensional limits. 
+		A morphism $ p: E \longrightarrow  B$ is of effective $ \mathcal{F}$-descent if and only if $ \mathcal{F}(\mathcal{K}^{ \textsf{Eq}(p)})$ is an equivalence.
+	\end{thm}
+	
+	\begin{defn}
+		A morphism $ p:E \longrightarrow  B$ in a 2-category $ \mathbb{A}$ is a \textit{lax epimorphism} if $ \textsf{Hom}_{ \mathbb{A}}(P,C) \mathbb{A}$ is fully faithful in \textsf{CAT} for any $ C$ in $ \mathbb{A}$.
+	\end{defn}
+
+	\begin{defn}
+		A morphism $ p:E \longrightarrow B$ of $ \mathcal{V}- \textsf{Cat}$ is $ \mathcal{V}$\textit{-fully faithful} if, for any $ x,y$ in $ E$, the morphism $ p: \textsf{Hom}_{E}(x,y) \longrightarrow \textsf{Hom}_{B}(px,py)  $ in $ \mathcal{V}$ is invertible.
+
+	\end{defn}
+	
+	\begin{defn} An object A of a (possibly large) $ \mathcal{V}$-category $ \mathbb{C}$ is \textit{tiny} if the $ \mathcal{V}$-functor $ \textsf{Hom}_{ \mathbb{C}}(A,-)  $ preserves colimits. 
+		For a small $ \mathcal{V}$-category $ \mathbb{E}$, we denote $ \mathcal{C} \mathbb{E}$ to be the full $ \mathcal{V}$-subcategory of $ \textsf{Hom}_{  \mathcal{V}-\textsf{CAT}}( \mathbb{E}, \mathcal{V} )$ consisting of the tiny objects of $ \textsf{Hom}_{  \mathcal{V}-\textsf{CAT}}( \mathbb{E}, \mathcal{V} )$.
+		We call $ \mathcal{C} \mathbb{E}$ the \textit{Cauchy completion} of $ \mathbb{E}$.
+		
+	\end{defn}
+	
+	The idea of this section is to study the characterisations of the morphisms that are both $ \mathcal{V}$-fully faithful and lax epimorphic in $ \mathcal{V}-\textsf{Cat}$. 
+	We first do this by studying this in terms of the induced morphism between the Cauchy completions.\\
+
+	We get that 
+	\begin{thm}
+		TFAE for a $ \mathcal{V}$-functor $ p: \mathbb{E} \longrightarrow \mathbb{B}$ between small $ \mathcal{V}$-categories:
+		\begin{enumerate}
+			\item $p$ is a lax epimorphism;
+			\item $ \mathcal{C}p$ is a lax epimorphism;
+			\item $ \mathcal{V}-\textsf{CAT}(p, \mathcal{V})$ is fully faithful.
+		\end{enumerate}
+
+		and the same holds if you swap "lax epimorphism" with "fully faithful", which is really nice.\\
+
+		Then it seems like we can extend this theorem to characterise the morphisms that are both $ \mathcal{V}$-fully faithful and lax epimorphic are just the morphisms which make $ \mathcal{V}-\textsf{CAT}(p, \mathcal{V})$ an equivalence.
+
+		
+	\end{thm}
+	
+	Now we can look at fully faithful and lax epimorphic morphisms in \textsf{Set-Cat}.
+
+	\begin{thm} A functor $ p: \mathbb{E} \longrightarrow \mathbb{B}$ between small categories is fully faithful (respectively, lax epimorphic) if and only if $ \textsf{Hom}_{ \textsf{CAT}}(p, \textsf{CAT}) \textsf{CAT}$ is lax epimorphic (respectively fully faithful).
+
+		
+	\end{thm}
+	
+	The paper ends with a theorem which is basically showing a relationship with the properties of being lax epimorphic, of some type of descent and also if the Cauchy completion is lax epimorphic.	
+
+\end{document} 
